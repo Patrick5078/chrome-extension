@@ -2,12 +2,19 @@
     "name": "Getting Started Example",
     "version": "1.0",
     "description": "Build an Extension!",
-    "permissions": ["activeTab", "declarativeContent", "storage"],
+    "permissions": ["activeTab", "declarativeContent", "storage", "http://facebook.com/"],
     "options_page": "options.html",
     "background": {
       "scripts": ["background.js"],
       "persistent": false
     },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["imageReplacer.js"],
+        "run_at": "document_idle"
+      }
+    ],
     "page_action": {
       "default_popup": "popup.html",
       "default_icon": {
