@@ -10,9 +10,9 @@
     },
     "content_scripts": [
       {
-        "matches": ["<all_urls>"],
-        "js": ["imageReplacer.js"],
-        "run_at": "document_idle"
+        "matches": ["https://www.facebook.com/*"],
+        "js": [ "images.js", "imageReplacer.js"],
+        "run_at": "document_start"
       }
     ],
     "page_action": {
