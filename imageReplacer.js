@@ -26,8 +26,8 @@ var callback = function(mutationsList, observer) {
                             // Exclude things that are already replaced
                             if (image.src.startsWith('data'))
                                 continue
-                            if (savedImages[image.src]){
-                                image.src = savedImages[image.src]
+                            if (savedImages[extractImageId(image.src)]){
+                                image.src = savedImages[extractImageId(image.src)]
                                 continue
                             }
                             // Determining profile pictures based on borderRadius was the best i could find for now
@@ -37,7 +37,7 @@ var callback = function(mutationsList, observer) {
                             let grandGrandParentStyle = getComputedStyle(image.parentNode.parentNode.parentNode.parentNode)
                             if (parentNodeStyle.borderRadius === '50%' || grandParentstyle.borderRadius === '50%' || imageStyle.borderRadius === "50%" || grandGrandParentStyle.borderRadius === '50%'){
                                 let randomlyAssignedImage = defaultImages[getRandomInt(6)]
-                                savedImages[image.src] = randomlyAssignedImage
+                                savedImages[extractImageId(image.src)] = randomlyAssignedImage
                                 image.src = randomlyAssignedImage
                             }
                     }
@@ -81,3 +81,9 @@ function getBase64Image(img) {
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
+
+function extractImageId(imageSrc) {
+    const firstHalf = imageSrc.split('?')[0];
+    const splittedString = firstHalf.split('/')
+    return splittedString.pop()
+}
